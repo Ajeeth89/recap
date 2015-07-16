@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Customer | eParipalana</title>
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" media="all" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+  <link href='http://fonts.googleapis.com/css?family=Raleway:500' rel='stylesheet' type='text/css'>
+  <!--<link rel="stylesheet" type="text/css" href="checkbox.css">-->
+<script src="javascript/validationOTP.js"></script>
+<script src="javascript/customer.js"></script>
+<script type="text/javascript">
+
+function switchVisible() {
+            if (document.getElementById('div1')) {
+
+                if (document.getElementById('div1').style.display == 'none') {
+					document.getElementById('response').style.display = 'none';
+                    document.getElementById('div1').style.display = 'block';
+                    document.getElementById('nextBtn').style.display = 'none';
+                }
+                
+            }
+}
+
+function getNext() {
+   
+                if (document.getElementById('response')) {
+
+			if(document.getElementById('nextBtn').style.display == 'none')
+			{
+                    document.getElementById('nextBtn').style.display = 'block';
+                }
+                
+            }
+}
+
+function getdistricts(){
+document.getElementById('response2').style.display = 'block';
+        selectedCountry = [];
+	$(':checkbox:checked').each(function(i){
+		selectedCountry[i] = $(this).attr("id");
+	});
+        $.ajax({
+            type: "POST",
+            url: "specificdistrict.php",
+            data: { country : selectedCountry } 
+        }).done(function(data){
+            $("#response2").html(data);
+        });
+		
+    }
+  
+function getall(){
+  
+if (document.getElementById('alldistricts').checked==true) 
+{
+
+        var selectedCountry = $('input:checked').serialize();
+        $.ajax({
+            type: "POST",
+            url: "alldistrict.php",
+            data: { country : selectedCountry } 
+        }).done(function(data){
+            $("#response").html(data);
+        });
+		
+    document.getElementById('div1').style.display = 'none';
+	document.getElementById('response2').style.display = 'none';
+	document.getElementById('response').style.display = 'block';
+	}
+	else
+	{
+alert("Fail");	
+	}
+}
+
+</script>
+</head>
+<body>
+  <div class="container">
+     <nav class="navbar navbar-default navbar-fixed-top" style="position:absolute">
+      <div class="container">
+        <div class="navbar-header">
+          <!-- The mobile navbar-toggle button can be safely removed since you do not need it in a non-responsive implementation -->
+        </div>
+        <!-- Note that the .navbar-collapse and .collapse classes have been removed from the #navbar -->
+        <div id="navbar">
+          <ul class="nav navbar-nav">
+          <li  ><a href="index.html">Home</a></li>
+            <li><a href="work.html">Work</a></li>
+            <li><a href="brand.html">Brand</a></li>
+          <li><a href="activity.html">Activity</a></li>
+          <li><a href="culture.html">Culture</a></li>
+          <li><a href="reach.html">Reach Us</a></li>
+          <li class="active"><a href="customer.html">Customer</a></li>
+          <li><a href="playstore.html">ePSCenquiry</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+<input type="hidden" id="screenName" value="CustomerScreen"/>
+  <div class="content" style="padding: 10px 10px 10px 10px; margin:270px 150px 10px 54px; position: absolute;">
+          <div style="display:block;" id="locationDetails">
+             <h2 style= "margin-left:299px; color: rgb(241, 113, 44);font-size:25px; font-family:Raleway;">Select Location</h2>
+         <!--<div class="dropdown" >
+           <select id="stateOptions" class="dropdown-select" style="width:250px;">
+             <option value="">Select state</option>
+             <option value="1">Arunachal Pradesh</option>
+             <option value="2">Assam</option>
+             <option value="3">Manipur</option>
+             <option value="4">Meghalaya</option>
+             <option value="5">Mizoram</option>
+             <option value="6">Nagaland</option>
+             <option value="7">Tripura</option>
+             
+          </select>
+        </div><br>
+      <div class="dropdown">
+        <select id="districtOptions" class="dropdown-select" style="width:250px;">
+          <option value="">Select city</option> 
+ 	     <option value="1">Agartala</option>
+             <option value="2">Dispur</option> 
+        </select>
+      </div>-->
+      <form>
+    <table style="width: 200px; margin:20px 150px 10px 290px; position: absolute;">
+        <tr>
+            <td style="margin-left:150px; font-family:Verdana;">
+                <label><input type="radio" value="all" onclick="getall()" id="alldistricts" size="25" name="country[]">All Districts</label>&nbsp;&nbsp;&nbsp;
+        <label><input type="radio" value="Specific" onclick="switchVisible()" id="specific" name="country[]">Specific</label>
+            </td>
+            
+        </tr>
+    </table>
+</form>
+
+
+	  <div style="display:none;" id="div1">
+         
+        <div class="left-col" style="margin-top:85px;margin-left:265px;">
+        <input class="css-checkbox lrg serviceCheckboxDetails" id="country_ap" onclick="getdistricts()" type="checkbox" name="country[]" value="ap" /><label for="country_ap" name="checkbox69_lbl" class="css-label lrg vlad">Arunachal Pradesh</label><br>
+        <input class="serviceCheckboxDetails css-checkbox lrg" id="country_assam" onclick="getdistricts()" type="checkbox" name="country[]"  value="assam"/><label for="country_assam" name="checkbox69_lbl" class="css-label lrg vlad">Assam</label><br>
+        <input class="serviceCheckboxDetails css-checkbox lrg" id="country_manipur" onclick="getdistricts()" type="checkbox" name="country[]" value="manipur"/><label for="country_manipur" name="checkbox69_lbl" class="css-label lrg vlad">Manipur</label><br>
+        <input class="serviceCheckboxDetails css-checkbox lrg" id="country_meghalaya" onclick="getdistricts()" type="checkbox" name="country[]" value="megalaya"/><label for="country_meghalaya" name="checkbox69_lbl" class="css-label lrg vlad">Meghalaya</label><br>
+        
+        </div>   
+        <div class="right-col" style="width: 415px; margin-right: 160px; margin-top: -98px;">
+		<input class="serviceCheckboxDetails css-checkbox lrg" id="country_mizoram" onclick="getdistricts()" type="checkbox" name="country[]" value="mizoram"/><label for="country_mizoram" name="checkbox69_lbl" class="css-label lrg vlad">Mizoram</label><br>
+        <input class="serviceCheckboxDetails css-checkbox lrg" id="country_nagaland" onclick="getdistricts()" type="checkbox" name="country[]" value="nagaland"/><label for="country_nagaland" name="checkbox69_lbl" class="css-label lrg vlad">Nagaland</label><br>
+        <input class="serviceCheckboxDetails css-checkbox lrg" id="country_tripura" onclick="getdistricts()" type="checkbox" name="country[]" value="tripura"/><label for="country_tripura" name="checkbox69_lbl" class="css-label lrg vlad">Tripura</label><br>
+        <input class="serviceCheckboxDetails css-checkbox lrg" id="country_sikkim" onclick="getdistricts()" type="checkbox" name="country[]" value="sikkim"/><label for="country_sikkim" name="checkbox69_lbl" class="css-label lrg vlad">Sikkim</label><br>
+          </div>
+              </form>   
+              
+        </div>
+		
+		<div id="response" class="right-col" style=" display:none; overflow-y:auto; height: 185px; width:200px; padding-top: 0px; width: 248px; margin-right: 140px; margin-top: -15px;">
+		
+		
+		
+		</div>
+		
+		<div id="response2" class="right-col" style=" display:none; overflow-y:auto; height: 185px; width:200px; padding-top: -13px; width: 248px; margin-right: 49px; margin-top: -150px;">
+		
+		
+		
+		</div>
+
+      <!--<div id = "nextBtn" style="margin-left:50%; margin-top:10px;display:none">
+	     <span class="btn btn-primary btn-lg" style="line-height:0.5; margin-left:275px; margin-top:10px; " onclick="servicesDetails();">Next >></span>-->
+		<div class= "backBtn" id="nextBtn" onclick="servicesDetails();" style=" display:none; line-height:0.5; margin-left: 685px; margin-top: 210px;">Next</div>
+    
+          </div>
+        <div style="display:none;" id="serviceDetails">
+          <h2 style="text-align:center;font-size:25px;font-family:Raleway; color: rgb(241, 113, 44);">Select the services sorted</h2>
+        <div class="left-col" style="margin-top:10px;margin-left:295px;">
+            <form>
+        <input class="serviceCheckboxDetails" id="option-1" type="checkbox" name="option-1" value="Onsite Staffing" />&nbsp;&nbsp;Onsite Staffing<br />
+        <input class="serviceCheckboxDetails" id="option-2" type="checkbox" name="option-2"  value="Delivery, Installation & Sign-off"/>&nbsp;&nbsp;Delivery, Installation & Sign-off<br />
+        <input class="serviceCheckboxDetails" id="option-3" type="checkbox" name="option-3" value="Digitisation, Data Entry"/>&nbsp;&nbsp;Digitisation, Data Entry<br />
+        <input class="serviceCheckboxDetails" id="option-4" type="checkbox" name="option-4" value="Third Party Audit"/>&nbsp;&nbsp;Third Party Audit<br />
+        <input class="serviceCheckboxDetails" id="option-5" type="checkbox" name="option-5" value="Skill Development"/>&nbsp;&nbsp;Skill Development<br />
+        </div>   
+        <div class="right-col" style="padding-top: 10px; width: 415px; margin-right: 0px; margin-top: -125px;">
+        <input class="serviceCheckboxDetails" id="option-6" type="checkbox" name="option-6" value="Training"/>&nbsp;&nbsp;Training<br />
+        <input class="serviceCheckboxDetails" id="option-7" type="checkbox" name="option-7" value="Placement"/>&nbsp;&nbsp;Placement<br />
+          <input class="serviceCheckboxDetails" id="option-8" type="checkbox" name="option-8" value="Assembling, Cable Laying"/>&nbsp;&nbsp;Assembling, Cable Laying<br />
+          <input class="serviceCheckboxDetails" id="option-9" type="checkbox" name="option-9" value="Servicing"/>&nbsp;&nbsp;Servicing<br />
+         <input class="serviceCheckboxDetails" id="option-10" type="checkbox" name="option-10" value="Maintenance, Tower Management"/>&nbsp;&nbsp;Maintenance, Tower Management<br />
+            
+          </div>
+              </form>   
+      <div class="img-col" style= "width:190px;">
+      <img src="images/customer.png" style="width: 190px; margin-top: -200px;">
+      </div>
+              <!--<div style="margin-left:385px;margin-top:15px;float:left;">
+<span class="btn btn-primary btn-lg" style="line-height:0.7;" onclick="backToLocations();"><< Back</span>
+                </div>      
+                <div style="margin-left:10px;margin-top:15px;float:left;">
+              <span class="btn btn-primary btn-lg" style="line-height:0.7;" onclick="customerDetails();">Next >></span>
+                </div> -->
+		<div class="backBtn" style="margin-left:450px;margin-top:15px;float:left;" onclick = "backToLocations();">  Back </div>
+		<div class="backBtn" style="margin-left:70px;margin-top:15px;float:left;" onclick = "customerDetails();"> Next  </div>
+        </div>
+         
+	<div class="contact-form" id="customerDetails" style="display:none;"> 
+        <div class="left-col">
+        <div class="left-col">
+              <img src="images/customer.png" style="width:190px; margin:-28px 0px 0px 65px;">
+            </div>
+        <!--<div style="margin-top:180px;">
+          <a href=""><img src="click.gif" style="width: 412px; margin-top: -30px;">
+             </a>
+                </div> -->
+          <div class= "backBtn" id="backBtn" style="margin:0px 0px 0px 85px;" onclick="backToLocations()"> <<< Go Back</div>
+        </div>
+        <div class="right-col" >
+          <form id="myform">
+          <div id="validationMsg" style="font-family: 'Open Sans', sans-serif;font-size: 14px;color:red;"></div>
+            <div class="right-col">
+               <input type="text" id="cname" name="cname" placeholder="Name" >
+            <input type="text" id="email" name="email" placeholder="Email" >
+            <input type="text" id="mobile" name="msisdn" placeholder="Mobile Number" > 
+              <textarea id="message" name="message" placeholder="Purpose Statement" ></textarea>
+              <div class= "sumbitForOTP" id="sumbitForOTP" onclick="generateOTP()">OTP</div>
+            <table><tr><!--<td><input type="button"  id="sumbitForOTP" name="sumbitForOTP"  onclick="generateOTP()" value="Submit For OTP"></td>-->
+            <td><div id="successMsg" style="font-family: 'Open Sans', sans-serif;font-size: 16px;color:red;margin-left: 6em;"></div></td></tr></table>
+            <input type="text" id="otp" name="otp" placeholder="Enter OTP" style="display:none;">
+            <div class= "send" id="send" onclick="sendOTP()" style="display:none;margin-right: 1em;">Submit</div> 
+            <div class= "reSend" id="reSend" onclick="resendOTP()" style="display:none;">ReSend OTP</div>
+            <!--<table><tr><td><input type="button" id="send" name="send" onclick="sendOTP()" value="Send" style="display:none;margin-right: 1em;"></td><td><input type="button" id="reSend" name="reSend" onclick="resendOTP()" value="ReSend OTP" style="display:none;"></td></tr></table>-->
+            <input type="hidden" id="hdnValue" name="hdnValue" />  
+            </div>
+            <input type="hidden" id="stateHdnVal" name="stateHdnVal" />
+		<input type="hidden" id="distrHdnVal" name="distrHdnVal" />
+		<input type="hidden" id="serviceHdnVal" name="serviceHdnVal" />
+          </form>
+              
+        </div>    
+           </div>     
+  </div>
+  
+    <img src="curlayout.png" style="height:450px;margin-top:160px;width:1100px;">
+  </div>
+   <div class="container">
+    <div style="color:white;">
+      <p style="margin-top:-10px;margin-left:158px;"><span style="font-size:12px; letter-spacing:4px;">Recap Ventures Private Ltd., #111, Kuppam Main Road, Kottivakkam, Chennai 600 041. </span></p>
+      <p style="margin-top:-12px;margin-left:300px;font-size:12px;letter-spacing:2px;"><span style="font-size:17px; color:rgb(84, 177, 228);">✆</span> +91 44 43201717, <span style="font-size:17px; color:rgb(84, 177, 228);">&#128224;</span> +91 44 43201818, <span style="font-size:17px; color:rgb(84, 177, 228);">&#9993;</span> info@recapventures.in</p>
+    </div>
+    
+  </div>
+</body>
+</html>
